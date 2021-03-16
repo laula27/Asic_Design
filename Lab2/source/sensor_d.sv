@@ -1,0 +1,20 @@
+// $Id: $
+// File name:   sensor_d.sv
+// Created:     1/30/2021
+// Author:      Laula Student
+// Lab Section: 337-015
+// Version:     1.0  Initial Design Entry
+// Description: second
+module sensor_d
+(
+	input wire [3:0] sensors,
+	output error
+);
+	wire temp1;
+	wire temp2;
+	wire temp3;
+	assign temp1 = (sensors[1] & sensors[2]);
+	assign temp2= (sensors[1] & sensors[3]);
+	assign temp3 = (sensors[0] | temp1);
+	assign error = (temp2 | temp3);
+endmodule
