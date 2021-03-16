@@ -1,0 +1,4 @@
+﻿1. 20ns for data_ready, to enter ZERO state, 2 clock cycle
+2. The image for filter.bump clears out centralizes part. It makes sense because it will filter the frequency.
+3. $fopen
+4. $fscanf %h %d %b %o %m %s %t %f %e
