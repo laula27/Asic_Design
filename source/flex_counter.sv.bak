@@ -1,0 +1,55 @@
+// $Id: $
+// File name:   flex_counter.sv
+// Created:     2/10/2021
+// Author:      Laula Student
+// Lab Section: 337-015
+// Version:     1.0  Initial Design Entry
+// Description: counter
+module flex_counter
+(
+	input wire clk,
+	input wire n_rst,
+	input wire clear,
+	input wire count_enable,
+	input wire [NUM_CNT_BITS:0] rollover_val,
+	output reg [NUM_CNT_BITS:0] count_out,
+	output reg rollover_flag
+);
+reg i;
+always_ff @ (negedge n_rst, posedge clk)
+begin: REG_LOGIC
+	if(1'b0 == n_rst) begin
+		count_out <= 1'b0;
+		i <= 1'b0;
+	end
+	else begin
+	i <= rollover_val;
+	count_out <= i;
+	end
+end	
+reg [NUM_CNT_BITS:0] count;
+always_comb @ 
+begin: NXT_LOGIC
+	count_out <= rollover_val;
+	count <= rollover_val;
+	if(count_enable) begin
+	count_out = count_out + 1;
+	end
+	else begin
+	count <= rollover_val;
+	count_out <= count;
+	end
+end	
+
+always_comb @ 
+begin: OUT_LOGIC
+	rollover_flag <= 1'b0;
+	if(!clear) begin
+	rollover_flag <= 1'b1;
+	end
+	else begin
+	rollover_flag <= 1'b0;
+	end
+end	
+
+endmodule
